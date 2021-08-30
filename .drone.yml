@@ -1,0 +1,13 @@
+pipeline:
+
+  test:
+    #image: atlassianlabs/docker-node-jdk-chrome-firefox
+    image: nightbringer/docker-phantomjs-nodejs
+    commands:
+      - npm install -g bower grunt-cli@0.1.x --silent
+      - npm install --silent
+      - bower cache clean --silent --allow-root
+      - bower install --silent --allow-root
+      - grunt karma:unit
+    environment:
+      - NODE_ENV=test

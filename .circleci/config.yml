@@ -1,0 +1,39 @@
+version: 2
+jobs:
+
+  test:
+    docker:
+      #- image: nightbringer/docker-phantomjs-nodejs
+      - image: circleci/node:6-browsers
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "package.json" }}
+      - run:
+          name: Install dependecies
+          command: |-
+            npm install --silent
+            sudo npm install -g bower grunt-cli@0.1.x --silent
+            bower cache clean --silent --allow-root
+            bower install --silent --allow-root
+      - save_cache:
+          key: cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Lint
+          command: grunt jshint
+      - run:
+          name: Test
+          environment:
+            NODE_ENV: test
+          command: |-
+            grunt karma:unit
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - test
