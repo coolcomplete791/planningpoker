@@ -132,7 +132,7 @@ angular.module('firePokerApp')
       newGame.owner = $scope.fp.user;
       newGame.participants = false;
       newGame.estimate = false;
-      $scope.showJiraButton=($scope.jira.username && $scope.jira.password)?true: false ;
+      newGame.showJiraButton=($scope.jira.username && $scope.jira.password)?true: false ;
       $scope.fp.jiraAuth=btoa($scope.jira.username+":"+$scope.jira.password);
       $scope.setNewGame(newGame);
       $cookieStore.put('fp', $scope.fp);

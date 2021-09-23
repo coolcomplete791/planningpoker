@@ -9,7 +9,7 @@
         <p ng-bind-html-unsafe="story.notes"></p>
       </div>
     </div>
-    <div class="move-right" ng-show="game.stories && game.stories[0].status == 'closed' && isOwner && showJiraButton ">
+    <div class="move-right" ng-show="game.stories && game.stories[0].status == 'closed' && isOwner && game.showJiraButton ">
       <button type="submit" class=" btn btn-primary" ng-click="updateToJira()">Update to Jira</button>
     </div>
     <!-- Estimate story --> 
