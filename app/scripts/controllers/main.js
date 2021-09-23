@@ -10,7 +10,7 @@
  * @author Everton Yoshitani <everton@wizehive.com>
  */
 angular.module('firePokerApp')
-  .controller('MainCtrl', function ($rootScope, $scope, $cookieStore, $location, $routeParams, $timeout, angularFire) {
+  .controller('MainCtrl', function ($rootScope, $scope, $cookieStore, $location, $routeParams, $timeout, angularFire, jiraService) {
 
     // Firebase URL
     //var URL = 'https://pzfqrq7kjy.firebaseio.com';
@@ -132,6 +132,8 @@ angular.module('firePokerApp')
       newGame.owner = $scope.fp.user;
       newGame.participants = false;
       newGame.estimate = false;
+      $scope.showJiraButton=($scope.jira.username && $scope.jira.password)?true: false ;
+      $scope.fp.jiraAuth=btoa($scope.jira.username+":"+$scope.jira.password);
       $scope.setNewGame(newGame);
       $cookieStore.put('fp', $scope.fp);
       $location.path('/games/' + $routeParams.gid);
@@ -301,6 +303,7 @@ angular.module('firePokerApp')
     $scope.showSelectEstimate = false;
     $scope.disablePlayAgainAndRevealButtons = false;
     $scope.showCards = false;
+    $scope.jira={username:'',password:''};   
 
     // Set card deck visibility
     $scope.setShowCardDeck = function() {
@@ -402,5 +405,10 @@ angular.module('firePokerApp')
       $scope.setShowCards();
       $scope.setUnestimatedStoryCount();
     });
+    
+    $scope.updateToJira=function() {
+        
+        $scope.game.stories.forEach(story=>{jiraService.updateStoryPoints(story, $scope.fp.jiraAuth)});
+    }
 
   });

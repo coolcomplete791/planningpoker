@@ -5,22 +5,12 @@
     <p>You can start inviting estimators after you have created the game.</p>
     <form name="form" ng-submit="createGame()" novalidate>
       <div class="form-group">
-        <label for="fullname">Your name (what other team members will see)</label>
+        <label class="required" for="fullname">Name</label>
         <input ng-model="fp.user.fullname" type="text" class="form-control" id="fullname" placeholder="Enter your name" required>
       </div>
       <div class="form-group">
-        <label for="name">Game name</label>
+        <label class="required" for="name">Session name</label>
         <input ng-model="newGame.name" type="text" class="form-control" id="name" placeholder="Enter game name" required>
-        <p class="help-block">For example: 'FirePoker project'</p>
-      </div>
-      <div class="form-group">
-        <label for="description">Game description (optional)</label>
-        <input ng-model="newGame.description" type="text" class="form-control" id="description" placeholder="Enter game description">
-      </div>
-      <div class="form-group">
-        <label for="stories">Import stories (optional, one per line)</label>
-        <textarea ng-model="newGame.stories" rows="10" class="form-control" id="stories" placeholder="Enter stories"></textarea>
-        <p class="help-block">Copy and paste to import stories into your game.</p>
       </div>
       <div class="form-group">
         <label for="deck">Choose the set of estimate cards you want to use.</label>
@@ -31,8 +21,16 @@
           <option value="3">T-Shirt: XXS, XS, S, M, L, XL, XXL and ?</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">Create game</button>
-       or <a href="#">Cancel</a>
+      <div class="form-group">
+        <label  for="jiraUsername">JIRA Username</label>
+        <input ng-model="jira.username"  type="text" class="form-control" id="jiraUsername" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label  for="jiraPassword">JIRA Password</label>
+        <input ng-model="jira.password"  type="password" class="form-control" id="jiraPassword" placeholder="Password">
+      </div>
+      <a href="#" class="btn btn-default margin-r-10">Cancel</a>
+      <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Create session</button>
     </form>
   </div>
 </div>
